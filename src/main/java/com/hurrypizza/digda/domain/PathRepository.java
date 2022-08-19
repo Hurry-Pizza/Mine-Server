@@ -10,7 +10,7 @@ import java.util.Optional;
 public interface PathRepository extends JpaRepository<Path, Long> {
 
     @Query(value = """
-                SELECT ST_ASTEXT(area) 
+                SELECT ST_ASTEXT(area)
                 FROM path 
                 WHERE path_id = :id
             """, nativeQuery = true)
