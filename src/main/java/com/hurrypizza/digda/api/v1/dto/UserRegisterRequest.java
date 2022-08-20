@@ -3,6 +3,7 @@ package com.hurrypizza.digda.api.v1.dto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
 
@@ -10,6 +11,7 @@ import javax.validation.constraints.Pattern;
 @Getter
 public class UserRegisterRequest {
 
+    @Email
     private String email;
 
     @NotEmpty(message = "필수 입력 항목입니다.")
