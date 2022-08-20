@@ -38,9 +38,11 @@ public interface PathRouteRepository extends JpaRepository<Path, Long> {
 
     @Modifying
     @Query(value = """
-                INSERT INTO path(route, user_id)
-                VALUES (ST_POLYGONFROMTEXT(:route), :userId)
+                INSERT INTO path(route, user_id, area)
+                VALUES (ST_POLYGONFROMTEXT(:route), :userId, :area)
             """, nativeQuery = true)
-    void save(@Param("userId") Long userId, @Param("route") String route);
+    void save(@Param("userId") Long userId,
+              @Param("route") String route,
+              @Param("area") Double area);
 
 }

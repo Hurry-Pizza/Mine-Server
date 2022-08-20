@@ -8,6 +8,6 @@ public interface PathService {
 
     List<PathUser> getPathsWithinCurrentMap(final String currentMap);
 
-    void savePath(final Long userId, final String path);
+    void savePath(final Long userId, final String path, final Double area);
 
 }

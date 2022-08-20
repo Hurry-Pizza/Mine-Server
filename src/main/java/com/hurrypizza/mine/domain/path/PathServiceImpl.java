@@ -23,8 +23,8 @@ public class PathServiceImpl implements PathService {
 
     @Transactional
     @Override
-    public void savePath(Long userId, String path) {
-        pathRouteRepository.save(userId, path);
+    public void savePath(Long userId, String path, Double area) {
+        pathRouteRepository.save(userId, path, area);
     }
 
     private long getCurrentUserId() {

@@ -11,6 +11,7 @@ import com.hurrypizza.mine.domain.projection.PathUser;
 import com.hurrypizza.mine.util.PolygonUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -37,8 +38,8 @@ public class PathController {
     @GetMapping("/route")
     public ApiResponse<?> routes() {
         var allRoute = pathRouteRepository.findAllRoute().stream()
-                              .map(PolygonUtil::toPolygonList)
-                              .toList();
+                               .map(PolygonUtil::toPolygonList)
+                               .toList();
         return ApiResponse.of(allRoute);
     }
 
@@ -50,10 +51,10 @@ public class PathController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ApiResponse<String> saveOnePath(@RequestBody PathSaveRequest pathSaveRequest) {
+    public ApiResponse<String> saveOnePath(@RequestBody @Validated PathSaveRequest pathSaveRequest) {
         var userId = SecurityUtils.getCurrentUserInfo().getId();
         var path = PolygonUtil.toPolygonString(pathSaveRequest.getPath());
-        pathService.savePath(userId, path);
+        pathService.savePath(userId, path, pathSaveRequest.getArea());
         return ApiResponse.emptyResponse();
     }
 
