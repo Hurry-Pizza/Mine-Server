@@ -30,11 +30,14 @@ public class UserAuthServiceImpl implements UserAuthService {
 
     @Transactional
     @Override
-    public UserInfo save(String email, String password, String color) {
+    public UserInfo save(String email, String password, String color, String nickname) {
         if (userRepository.findByEmail(email).isPresent()) {
             throw new ResourceAlreadyExistException("Email: %s".formatted(email));
         }
-        var user = userRepository.save(User.createNormalUser(email, password, color));
+        if (userRepository.findByNickname(nickname).isPresent()) {
+            throw new ResourceAlreadyExistException("Nickname: %s".formatted(nickname));
+        }
+        var user = userRepository.save(User.createNormalUser(email, password, color, nickname));
         return UserInfo.from(user);
     }
 

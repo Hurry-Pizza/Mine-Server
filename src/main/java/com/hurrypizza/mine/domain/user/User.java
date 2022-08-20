@@ -42,15 +42,26 @@ public class User extends BaseTimeEntity {
     @Column
     private UserRole role;
 
-    private User(String email, String password, String color, UserRole role) {
+    @Column
+    private String nickname;
+
+    private User(String email,
+                 String password,
+                 String color,
+                 UserRole role,
+                 String nickname) {
         this.color = color;
         this.email = email;
         this.password = password;
         this.role = role;
+        this.nickname = nickname;
     }
 
-    public static User createNormalUser(String email, String password, String color) {
-        return new User(email, password, color, UserRole.ROLE_USER);
+    public static User createNormalUser(final String email,
+                                        final String password,
+                                        final String color,
+                                        final String nickname) {
+        return new User(email, password, color, UserRole.ROLE_USER, nickname);
     }
 
 }

@@ -28,6 +28,7 @@ public interface PathAreaRepository extends JpaRepository<Path, Long> {
                 SELECT  p.path_id as pathId,
                         ST_ASTEXT(p.area) as area,
                         u.user_id as userId,
+                        u.nickname as userNickname,
                         u.color as color
                 FROM path as p
                 INNER JOIN user as u ON p.user_id = u.user_id

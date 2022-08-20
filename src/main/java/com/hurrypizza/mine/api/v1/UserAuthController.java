@@ -30,7 +30,10 @@ public class UserAuthController {
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<ApiResponse<String>> save(@RequestBody @Validated UserRegisterRequest request) {
         var encodedPassword = passwordEncoder.encode(request.getPassword());
-        var userInfo = userAuthService.save(request.getEmail(), encodedPassword, request.getColor());
+        var userInfo = userAuthService.save(request.getEmail(),
+                encodedPassword,
+                request.getColor(),
+                request.getNickname());
         var token = tokenProvider.createToken(userInfo);
         return ResponseEntity.status(HttpStatus.CREATED)
                        .header(HttpHeaders.AUTHORIZATION, JwtTokenSupport.tokenWithType(token))

@@ -15,6 +15,7 @@ public class PathUser {
     private Long pathId;
     private List<List<String>> path;
     private Long userId;
+    private String userNickname;
     private String color;
 
     public static PathUser from(PathUserProjection projection) {
@@ -22,6 +23,7 @@ public class PathUser {
         return new PathUser(projection.getPathId(),
                 path,
                 projection.getUserId(),
+                projection.getUserNickname(),
                 projection.getColor());
     }
 

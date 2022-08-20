@@ -8,6 +8,8 @@ public interface PathUserProjection {
 
     Long getUserId();
 
+    String getUserNickname();
+
     String getColor();
 
 }
