@@ -18,11 +18,17 @@ public class SecurityUtils {
     public static UserInfo getCurrentUserInfo() {
         try {
             var authentication = (JwtAuthentication) SecurityContextHolder.getContext()
-                                                         .getAuthentication();
+                                                             .getAuthentication();
             return authentication.getUserInfo();
         } catch (Exception e) {
             throw new AccessDeniedException("유저 인증 정보가 존재하지 않습니다");
         }
+    }
+
+    public static boolean isAuthenticated() {
+        var context = SecurityContextHolder.getContext()
+                              .getAuthentication();
+        return context instanceof JwtAuthentication;
     }
 
     public static String generateRandomString(int len) {

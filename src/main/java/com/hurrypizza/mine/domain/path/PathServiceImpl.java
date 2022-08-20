@@ -1,5 +1,6 @@
 package com.hurrypizza.mine.domain.path;
 
+import com.hurrypizza.mine.config.security.util.SecurityUtils;
 import com.hurrypizza.mine.domain.projection.PathUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,7 +17,7 @@ public class PathServiceImpl implements PathService {
     @Override
     public List<PathUser> getPathsWithinCurrentMap(final String currentMap) {
         return pathAreaRepository.findAllPathWithin(currentMap).stream()
-                       .map(PathUser::from)
+                       .map(projection -> PathUser.from(projection, getCurrentUserId()))
                        .toList();
     }
 
@@ -24,6 +25,13 @@ public class PathServiceImpl implements PathService {
     @Override
     public void savePath(Long userId, String path) {
         pathAreaRepository.save(userId, path);
+    }
+
+    private long getCurrentUserId() {
+        if (SecurityUtils.isAuthenticated()) {
+            return SecurityUtils.getCurrentUserInfo().getId();
+        }
+        return -1;
     }
 
 }

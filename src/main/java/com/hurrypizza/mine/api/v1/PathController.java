@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -51,8 +50,7 @@ public class PathController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ApiResponse<String> saveOnePath(@RequestBody PathSaveRequest pathSaveRequest,
-                                           Principal principal) {
+    public ApiResponse<String> saveOnePath(@RequestBody PathSaveRequest pathSaveRequest) {
         var userId = SecurityUtils.getCurrentUserInfo().getId();
         var path = PolygonUtil.toPolygonString(pathSaveRequest.getPath());
         pathService.savePath(userId, path);
@@ -61,6 +59,8 @@ public class PathController {
 
     @GetMapping("/within")
     public ApiResponse<List<PathUser>> allPathsWithinCurrentMap(@RequestBody CurrentMapRequest currentMapRequest) {
+
+
         var currentMap = PolygonUtil.toPolygonString(currentMapRequest.getCurrentMap());
         var pathUsers = pathService.getPathsWithinCurrentMap(currentMap);
         return ApiResponse.of(pathUsers);

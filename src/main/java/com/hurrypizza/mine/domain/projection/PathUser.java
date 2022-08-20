@@ -12,19 +12,21 @@ import java.util.List;
 @AllArgsConstructor
 public class PathUser {
 
-    private Long pathId;
+    private long pathId;
     private List<List<String>> path;
-    private Long userId;
+    private long userId;
     private String userNickname;
     private String color;
+    private boolean isMine;
 
-    public static PathUser from(PathUserProjection projection) {
+    public static PathUser from(PathUserProjection projection, long currentUserId) {
         var path = PolygonUtil.toPolygonList(projection.getArea());
         return new PathUser(projection.getPathId(),
                 path,
                 projection.getUserId(),
                 projection.getUserNickname(),
-                projection.getColor());
+                projection.getColor(),
+                currentUserId == projection.getUserId());
     }
 
 }
