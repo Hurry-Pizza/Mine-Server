@@ -1,9 +1,12 @@
 package com.hurrypizza.digda.api.v1;
 
 import com.hurrypizza.digda.api.ApiResponse;
+import com.hurrypizza.digda.api.v1.dto.CurrentMapRequest;
 import com.hurrypizza.digda.api.v1.dto.PathSaveRequest;
 import com.hurrypizza.digda.domain.path.Path;
-import com.hurrypizza.digda.domain.path.PathRepository;
+import com.hurrypizza.digda.domain.path.PathAreaRepository;
+import com.hurrypizza.digda.domain.path.PathService;
+import com.hurrypizza.digda.domain.projection.PathUser;
 import com.hurrypizza.digda.util.PolygonUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -23,16 +26,17 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PathController {
 
-    private final PathRepository pathRepository;
+    private final PathAreaRepository pathAreaRepository;
+    private final PathService pathService;
 
     @GetMapping
     public ApiResponse<List<Long>> paths() {
-        return ApiResponse.of(pathRepository.findAll().stream().map(Path::getId).toList());
+        return ApiResponse.of(pathAreaRepository.findAll().stream().map(Path::getId).toList());
     }
 
     @GetMapping("/area")
     public ApiResponse<?> areas() {
-        var allArea = pathRepository.findAllArea().stream()
+        var allArea = pathAreaRepository.findAllArea().stream()
                               .map(PolygonUtil::toPolygonList)
                               .toList();
         return ApiResponse.of(allArea);
@@ -40,7 +44,7 @@ public class PathController {
 
     @GetMapping("/{pathId}/area")
     public ApiResponse<String> oneArea(@PathVariable Long pathId) {
-        var area = pathRepository.findAreaById(pathId).orElse(null);
+        var area = pathAreaRepository.findAreaById(pathId).orElse(null);
         return ApiResponse.of(area);
     }
 
@@ -49,8 +53,15 @@ public class PathController {
     @Transactional
     public ApiResponse<String> saveOnePath(@RequestBody PathSaveRequest pathSaveRequest) {
         var area = PolygonUtil.toPolygonString(pathSaveRequest.getPath());
-        pathRepository.saveArea(1L, area);
+        pathAreaRepository.saveArea(1L, area);
         return ApiResponse.emptyResponse();
+    }
+
+    @GetMapping("/within")
+    public ApiResponse<List<PathUser>> allPathsWithinCurrentMap(@RequestBody CurrentMapRequest currentMapRequest) {
+        var currentMap = PolygonUtil.toPolygonString(currentMapRequest.getCurrentMap());
+        var pathUsers = pathService.getPathsWithinCurrentMap(currentMap);
+        return ApiResponse.of(pathUsers);
     }
 
 }
