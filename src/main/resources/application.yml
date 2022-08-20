@@ -24,3 +24,7 @@ jwt:
 digda:
   server:
     url: ${DIGDA_SERVER_URL}
+
+logging:
+  level:
+    com.hurrypizza.digda: debug
