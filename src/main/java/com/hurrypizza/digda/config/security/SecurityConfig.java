@@ -12,7 +12,6 @@ import com.hurrypizza.digda.config.security.token.jwt.JwtTokenPersistFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.ProviderManager;
@@ -38,7 +37,7 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http,
                                                    AuthenticationManager authenticationManager)
-        throws Exception {
+            throws Exception {
         // @formatter:off
         return http.csrf().disable()
                    .formLogin().disable()
@@ -47,7 +46,7 @@ public class SecurityConfig {
                    .headers().frameOptions().sameOrigin().and()
                    .authorizeRequests()
                        .antMatchers("/v1/users/auth/**").permitAll()
-                       .antMatchers(HttpMethod.GET, "/exception/**").permitAll()
+                       .antMatchers("/exception/**").permitAll()
                        .anyRequest().authenticated().and()
                    .exceptionHandling()
                         .authenticationEntryPoint(customAuthenticationEntryPoint).and()
@@ -62,11 +61,11 @@ public class SecurityConfig {
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
         return web -> web.ignoring().antMatchers("/h2-console/**",
-                                                 "/favicon.ico",
-                                                 "/error",
-                                                 "/swagger-ui/**",
-                                                 "/swagger-resources/**",
-                                                 "/v3/api-docs");
+                "/favicon.ico",
+                "/error",
+                "/swagger-ui/**",
+                "/swagger-resources/**",
+                "/v3/api-docs");
     }
 
     @Bean

@@ -1,6 +1,8 @@
 package com.hurrypizza.digda.exception;
 
-public class LoginFailedException extends RuntimeException {
+import org.springframework.security.core.AuthenticationException;
+
+public class LoginFailedException extends AuthenticationException {
 
     public LoginFailedException() {
         super("Login is failed.");

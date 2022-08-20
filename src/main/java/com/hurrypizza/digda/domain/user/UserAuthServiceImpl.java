@@ -4,6 +4,7 @@ import com.hurrypizza.digda.exception.LoginFailedException;
 import com.hurrypizza.digda.exception.ResourceAlreadyExistException;
 import com.hurrypizza.digda.exception.ResourceNotExistException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,7 +18,8 @@ public class UserAuthServiceImpl implements UserAuthService {
     private final PasswordEncoder encoder;
 
     @Override
-    public User validateUserByEmailAndPassword(final String email, final String password) {
+    public User validateUserByEmailAndPassword(final String email, final String password)
+            throws AuthenticationException {
         var user = findByEmail(email);
         if (!encoder.matches(password, user.getPassword())) {
             throw new LoginFailedException("Password is wrong");

@@ -3,6 +3,8 @@ package com.hurrypizza.digda.api.exceptionhandler;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.validation.BindException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -45,19 +47,17 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED).body(ExceptionResponse.of(e.getMessage()));
     }
 
-//    @ExceptionHandler(AccessDeniedException.class)
-//    protected ResponseEntity<ExceptionResponse> handleAccessDeniedException(AccessDeniedException e) {
-//        log.error("handleAccessDeniedException", e);
-//        final var response = ExceptionResponse.of(ExceptionCode.HANDLE_ACCESS_DENIED);
-//        return new ResponseEntity<>(response, ExceptionCode.HANDLE_ACCESS_DENIED.getStatus());
-//    }
-//
-//    @ExceptionHandler(AuthenticationException.class)
-//    protected ResponseEntity<ExceptionResponse> handleAuthenticationException(AuthenticationException e) {
-//        log.error("AuthenticationException", e);
-//        final var response = ExceptionResponse.of(ExceptionCode.AUTHENTICATION_FAILURE);
-//        return new ResponseEntity<>(response, ExceptionCode.AUTHENTICATION_FAILURE.getStatus());
-//    }
+    @ExceptionHandler(AccessDeniedException.class)
+    protected ResponseEntity<ExceptionResponse> handleAccessDeniedException(AccessDeniedException e) {
+        log.error("handleAccessDeniedException", e);
+        return ResponseEntity.badRequest().body(ExceptionResponse.of(e.getMessage()));
+    }
+
+    @ExceptionHandler(AuthenticationException.class)
+    protected ResponseEntity<ExceptionResponse> handleAuthenticationException(AuthenticationException e) {
+        log.error("AuthenticationException", e);
+        return ResponseEntity.badRequest().body(ExceptionResponse.of(e.getMessage()));
+    }
 
     @ExceptionHandler(Exception.class)
     protected ResponseEntity<ExceptionResponse> handleException(Exception e) {
