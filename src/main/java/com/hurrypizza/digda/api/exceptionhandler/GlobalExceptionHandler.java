@@ -1,4 +1,4 @@
-package com.hurrypizza.digda.api.exception;
+package com.hurrypizza.digda.api.exceptionhandler;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;

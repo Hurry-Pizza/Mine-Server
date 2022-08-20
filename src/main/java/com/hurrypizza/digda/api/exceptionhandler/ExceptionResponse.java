@@ -1,4 +1,4 @@
-package com.hurrypizza.digda.api.exception;
+package com.hurrypizza.digda.api.exceptionhandler;
 
 import lombok.AccessLevel;
 import lombok.Getter;
