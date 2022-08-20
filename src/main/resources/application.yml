@@ -21,3 +21,8 @@ spring:
 
 jwt:
   secret-key: testKey
+
+
+digda:
+  server:
+    url: ${DIGDA_SERVER_URL}
