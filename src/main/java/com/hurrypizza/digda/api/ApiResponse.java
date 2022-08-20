@@ -11,10 +11,17 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ApiResponse<T> {
+
+    private static final String EMPTY_STRING = "";
+
     private T data;
 
     public static <T> ApiResponse<T> of(T data) {
         return new ApiResponse<>(data);
+    }
+
+    public static ApiResponse<String> emptyResponse() {
+        return ApiResponse.of(EMPTY_STRING);
     }
 
 }

@@ -47,9 +47,10 @@ public class PathController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     @Transactional
-    public void saveOnePath(@RequestBody PathSaveRequest pathSaveRequest) {
+    public ApiResponse<String> saveOnePath(@RequestBody PathSaveRequest pathSaveRequest) {
         var area = PolygonUtil.toPolygonString(pathSaveRequest.getPath());
         pathRepository.saveArea(1L, area);
+        return ApiResponse.emptyResponse();
     }
 
 }
