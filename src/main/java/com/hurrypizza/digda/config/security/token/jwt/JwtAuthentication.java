@@ -11,7 +11,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.LinkedList;
 
-public class JwtAuthenticationToken implements Authentication {
+public class JwtAuthentication implements Authentication {
 
     private final Collection<GrantedAuthority> authorities = new LinkedList<>();
     private final UserPrincipal principal;
@@ -19,7 +19,7 @@ public class JwtAuthenticationToken implements Authentication {
     private final UserDetails details;
     private boolean authenticated = true;
 
-    public JwtAuthenticationToken(UserInfo token) {
+    public JwtAuthentication(UserInfo token) {
         authorities.add(new SimpleGrantedAuthority(token.getRole().toString()));
         principal = UserPrincipal
                         .builder()

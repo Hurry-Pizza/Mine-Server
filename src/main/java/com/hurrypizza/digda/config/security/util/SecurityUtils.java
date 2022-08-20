@@ -1,7 +1,7 @@
 package com.hurrypizza.digda.config.security.util;
 
 import com.hurrypizza.digda.config.security.UserInfo;
-import com.hurrypizza.digda.config.security.token.jwt.JwtAuthenticationToken;
+import com.hurrypizza.digda.config.security.token.jwt.JwtAuthentication;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.context.SecurityContextHolder;
 
@@ -17,8 +17,9 @@ public class SecurityUtils {
 
     public static UserInfo getCurrentUserInfo() {
         try {
-            var token = (JwtAuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
-            return token.getUserInfo();
+            var authentication = (JwtAuthentication) SecurityContextHolder.getContext()
+                                                         .getAuthentication();
+            return authentication.getUserInfo();
         } catch (Exception e) {
             throw new AccessDeniedException("유저 인증 정보가 존재하지 않습니다");
         }

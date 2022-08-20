@@ -26,7 +26,7 @@ public class JwtTokenPersistFilter extends OncePerRequestFilter {
         try {
             var tokenStr = httpTokenExtractor.extractToken(request);
             var authToken = tokenProvider.parseUserInfoFromToken(tokenStr);
-            SecurityContextHolder.getContext().setAuthentication(new JwtAuthenticationToken(authToken));
+            SecurityContextHolder.getContext().setAuthentication(new JwtAuthentication(authToken));
         } catch (Exception e) {
             log.debug("JwtTokenPersistFilter error", e);
             SecurityContextHolder.clearContext();
