@@ -20,7 +20,7 @@ public class PathUser {
     private boolean isMine;
 
     public static PathUser from(PathUserProjection projection, long currentUserId) {
-        var path = PolygonUtil.toPolygonList(projection.getArea());
+        var path = PolygonUtil.toPolygonList(projection.getRoute());
         return new PathUser(projection.getPathId(),
                 path,
                 projection.getUserId(),

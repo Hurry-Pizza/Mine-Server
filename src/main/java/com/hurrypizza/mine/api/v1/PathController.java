@@ -5,7 +5,7 @@ import com.hurrypizza.mine.api.v1.dto.CurrentMapRequest;
 import com.hurrypizza.mine.api.v1.dto.PathSaveRequest;
 import com.hurrypizza.mine.config.security.util.SecurityUtils;
 import com.hurrypizza.mine.domain.path.Path;
-import com.hurrypizza.mine.domain.path.PathAreaRepository;
+import com.hurrypizza.mine.domain.path.PathRouteRepository;
 import com.hurrypizza.mine.domain.path.PathService;
 import com.hurrypizza.mine.domain.projection.PathUser;
 import com.hurrypizza.mine.util.PolygonUtil;
@@ -26,26 +26,26 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PathController {
 
-    private final PathAreaRepository pathAreaRepository;
+    private final PathRouteRepository pathRouteRepository;
     private final PathService pathService;
 
     @GetMapping
     public ApiResponse<List<Long>> paths() {
-        return ApiResponse.of(pathAreaRepository.findAll().stream().map(Path::getId).toList());
+        return ApiResponse.of(pathRouteRepository.findAll().stream().map(Path::getId).toList());
     }
 
-    @GetMapping("/area")
-    public ApiResponse<?> areas() {
-        var allArea = pathAreaRepository.findAllArea().stream()
+    @GetMapping("/route")
+    public ApiResponse<?> routes() {
+        var allRoute = pathRouteRepository.findAllRoute().stream()
                               .map(PolygonUtil::toPolygonList)
                               .toList();
-        return ApiResponse.of(allArea);
+        return ApiResponse.of(allRoute);
     }
 
-    @GetMapping("/{pathId}/area")
-    public ApiResponse<String> oneArea(@PathVariable Long pathId) {
-        var area = pathAreaRepository.findAreaById(pathId).orElse(null);
-        return ApiResponse.of(area);
+    @GetMapping("/{pathId}/route")
+    public ApiResponse<String> oneRoute(@PathVariable Long pathId) {
+        var route = pathRouteRepository.findRouteById(pathId).orElse(null);
+        return ApiResponse.of(route);
     }
 
     @PostMapping

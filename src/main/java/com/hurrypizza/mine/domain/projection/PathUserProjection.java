@@ -4,7 +4,7 @@ public interface PathUserProjection {
 
     Long getPathId();
 
-    String getArea();
+    String getRoute();
 
     Long getUserId();
 

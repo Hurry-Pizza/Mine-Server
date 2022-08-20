@@ -11,8 +11,8 @@ public class PolygonUtil {
     }
 
     public static List<List<String>> toPolygonList(String polygonString) {
-        var areaData = polygonString.substring(9, polygonString.length() - 2);
-        return Arrays.stream(areaData.split(","))
+        var routeData = polygonString.substring(9, polygonString.length() - 2);
+        return Arrays.stream(routeData.split(","))
                        .map(point -> Arrays.stream(point.split(" ")).toList())
                        .toList();
     }

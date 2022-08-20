@@ -12,11 +12,11 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PathServiceImpl implements PathService {
 
-    private final PathAreaRepository pathAreaRepository;
+    private final PathRouteRepository pathRouteRepository;
 
     @Override
     public List<PathUser> getPathsWithinCurrentMap(final String currentMap) {
-        return pathAreaRepository.findAllPathWithin(currentMap).stream()
+        return pathRouteRepository.findAllPathWithin(currentMap).stream()
                        .map(projection -> PathUser.from(projection, getCurrentUserId()))
                        .toList();
     }
@@ -24,7 +24,7 @@ public class PathServiceImpl implements PathService {
     @Transactional
     @Override
     public void savePath(Long userId, String path) {
-        pathAreaRepository.save(userId, path);
+        pathRouteRepository.save(userId, path);
     }
 
     private long getCurrentUserId() {
