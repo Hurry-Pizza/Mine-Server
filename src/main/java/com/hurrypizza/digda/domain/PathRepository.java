@@ -1,6 +1,7 @@
 package com.hurrypizza.digda.domain;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -22,5 +23,11 @@ public interface PathRepository extends JpaRepository<Path, Long> {
             """, nativeQuery = true)
     List<String> findAllArea();
 
+    @Modifying
+    @Query(value = """
+                        INSERT INTO path(area, user_id)
+                        VALUES (ST_POLYGONFROMTEXT(:area), :userId)
+            """, nativeQuery = true)
+    void saveArea(@Param("userId") Long userId, @Param("area") String area);
 
 }
