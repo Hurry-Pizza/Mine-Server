@@ -38,8 +38,9 @@ public class AuthConfig {
 
     @Bean
     public LoginSuccessHandler successHandler(TokenProvider tokenProvider,
-                                              HttpAuthTokenSupport authTokenSupport) {
-        return new LoginSuccessHandler(tokenProvider, authTokenSupport);
+                                              HttpAuthTokenSupport authTokenSupport,
+                                              ObjectMapper objectMapper) {
+        return new LoginSuccessHandler(tokenProvider, authTokenSupport, objectMapper);
     }
 
     @Bean
