@@ -21,10 +21,10 @@ spring:
 jwt:
   secret-key: testKey
 
-digda:
+mine:
   server:
-    url: ${DIGDA_SERVER_URL}
+    url: ${MINE_SERVER_URL}
 
 logging:
   level:
-    com.hurrypizza.digda: debug
+    com.hurrypizza.mine: debug
