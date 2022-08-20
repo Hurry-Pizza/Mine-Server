@@ -13,6 +13,10 @@ public class JwtTokenSupport implements HttpAuthTokenSupport {
 
     public static final String TOKEN_TYPE = "Bearer";
 
+    public static String tokenWithType(String token) {
+        return TOKEN_TYPE + " " + token;
+    }
+
     @Override
     public String extractToken(HttpServletRequest target) {
         try {
@@ -26,6 +30,6 @@ public class JwtTokenSupport implements HttpAuthTokenSupport {
 
     @Override
     public void injectToken(HttpServletResponse dest, String token) {
-        dest.addHeader(HttpHeaders.AUTHORIZATION, TOKEN_TYPE + " " + token);
+        dest.addHeader(HttpHeaders.AUTHORIZATION, tokenWithType(token));
     }
 }

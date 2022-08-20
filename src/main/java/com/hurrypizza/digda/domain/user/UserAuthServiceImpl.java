@@ -1,5 +1,6 @@
 package com.hurrypizza.digda.domain.user;
 
+import com.hurrypizza.digda.config.security.UserInfo;
 import com.hurrypizza.digda.exception.LoginFailedException;
 import com.hurrypizza.digda.exception.ResourceAlreadyExistException;
 import com.hurrypizza.digda.exception.ResourceNotExistException;
@@ -29,11 +30,12 @@ public class UserAuthServiceImpl implements UserAuthService {
 
     @Transactional
     @Override
-    public void save(String email, String password, String color) {
+    public UserInfo save(String email, String password, String color) {
         if (userRepository.findByEmail(email).isPresent()) {
             throw new ResourceAlreadyExistException("Email: %s".formatted(email));
         }
-        userRepository.save(User.createNormalUser(email, password, color));
+        var user = userRepository.save(User.createNormalUser(email, password, color));
+        return UserInfo.from(user);
     }
 
     private User findByEmail(final String email) {
