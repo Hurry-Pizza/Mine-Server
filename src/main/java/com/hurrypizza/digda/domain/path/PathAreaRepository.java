@@ -40,6 +40,6 @@ public interface PathAreaRepository extends JpaRepository<Path, Long> {
                 INSERT INTO path(area, user_id)
                 VALUES (ST_POLYGONFROMTEXT(:area), :userId)
             """, nativeQuery = true)
-    void saveArea(@Param("userId") Long userId, @Param("area") String area);
+    void save(@Param("userId") Long userId, @Param("area") String area);
 
 }
