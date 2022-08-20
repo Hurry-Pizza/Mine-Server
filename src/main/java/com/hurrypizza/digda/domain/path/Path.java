@@ -1,9 +1,12 @@
 package com.hurrypizza.digda.domain.path;
 
+import com.hurrypizza.digda.domain.BaseTimeEntity;
 import com.hurrypizza.digda.domain.user.User;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -19,7 +22,9 @@ import javax.persistence.Table;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @Table(name = "path")
-public class Path {
+@SQLDelete(sql = "UPDATE path SET is_deleted = true WHERE path_id=?")
+@Where(clause = "is_deleted = false")
+public class Path extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
