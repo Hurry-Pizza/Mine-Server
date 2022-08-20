@@ -15,6 +15,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -58,10 +59,8 @@ public class PathController {
         return ApiResponse.emptyResponse();
     }
 
-    @GetMapping("/within")
+    @PutMapping("/within")
     public ApiResponse<List<PathUser>> allPathsWithinCurrentMap(@RequestBody CurrentMapRequest currentMapRequest) {
-
-
         var currentMap = PolygonUtil.toPolygonString(currentMapRequest.getCurrentMap());
         var pathUsers = pathService.getPathsWithinCurrentMap(currentMap);
         return ApiResponse.of(pathUsers);
