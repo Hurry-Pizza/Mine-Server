@@ -2,8 +2,8 @@ package com.hurrypizza.digda.api.v1;
 
 import com.hurrypizza.digda.api.ApiResponse;
 import com.hurrypizza.digda.api.v1.dto.PathSaveRequest;
-import com.hurrypizza.digda.domain.Path;
-import com.hurrypizza.digda.domain.PathRepository;
+import com.hurrypizza.digda.domain.path.Path;
+import com.hurrypizza.digda.domain.path.PathRepository;
 import com.hurrypizza.digda.util.PolygonUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

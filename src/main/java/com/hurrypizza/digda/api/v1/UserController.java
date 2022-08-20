@@ -1,8 +1,8 @@
 package com.hurrypizza.digda.api.v1;
 
 import com.hurrypizza.digda.api.ApiResponse;
-import com.hurrypizza.digda.domain.User;
-import com.hurrypizza.digda.domain.UserRepository;
+import com.hurrypizza.digda.domain.user.User;
+import com.hurrypizza.digda.domain.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

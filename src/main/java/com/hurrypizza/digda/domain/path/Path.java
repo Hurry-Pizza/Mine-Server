@@ -1,5 +1,6 @@
-package com.hurrypizza.digda.domain;
+package com.hurrypizza.digda.domain.path;
 
+import com.hurrypizza.digda.domain.user.User;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
