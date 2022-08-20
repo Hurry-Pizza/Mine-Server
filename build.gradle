@@ -46,12 +46,8 @@ tasks.named('test') {
     useJUnitPlatform()
 }
 
-jib {
-    from {
-        image = "eclipse-temurin:17-jre"
-    }
-    to {
-        image = "tree9295/mine-api"
-        tags = ["1.0.0"]
-    }
+if(project.hasProperty('prod')) {
+    apply from: rootProject.file('profile_prod.gradle');
+} else {
+    apply from: rootProject.file('profile_dev.gradle');
 }
