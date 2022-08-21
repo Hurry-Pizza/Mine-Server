@@ -47,6 +47,7 @@ public class SecurityConfig {
                    .authorizeRequests()
                        .antMatchers("/v1/users/auth/**").permitAll()
                        .antMatchers("/v1/paths/within").permitAll()
+                       .antMatchers("/v1/ranks/**").permitAll()
                        .antMatchers("/exception/**").permitAll()
                        .anyRequest().authenticated().and()
                    .exceptionHandling()
